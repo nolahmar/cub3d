@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 11:27:34 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/05 14:55:42 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:58:03 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,16 @@ void drawline(t_vars *vars, int X1, int Y1)
     } 
 } 
 
-int check_player_direction(t_vars *vars)
+int check_player_direction(t_vars *vars, int ray_cast_type)
 {
     double angle;
     
     angle = vars->player_angle;
-    if (angle >= 0 && angle <= 180) //Player is facing down
+    if (ray_cast_type == 1 && angle >= 0 && angle <= 180) //Player is facing down
         return (1);
-    if (angle >= 180 && angle <= 360) //Player is facing up
+    if (ray_cast_type == 1 && angle >= 180 && angle <= 360) //Player is facing up
         return (2);
-    if (angle >= 270 && angle <= 90) //Player is facing rigth
+    if (angle >= 270 || angle <= 90) //Player is facing rigth
         return (3);
     if (angle >= 90 && angle <= 270) //Player is facing left
         return (4);
@@ -151,7 +151,7 @@ void horizontal_ray_cast(t_vars *vars)
     //printf("player_angle[%f]\n", vars->player_angle);
     angle = vars->player_angle * M_PI / 180.0;
     // this if the player is facing up
-    if (check_player_direction(vars) == 2)
+    if (check_player_direction(vars, 1) == 2)
     {
         intersection_y = floor(ray_y / 64) * 64 - 1;
         ya = -64;
@@ -159,7 +159,7 @@ void horizontal_ray_cast(t_vars *vars)
         xa = 64.0 / -(double)tan(angle);
     }
     // if the player is facing down
-    if (check_player_direction(vars) == 1)
+    if (check_player_direction(vars, 1) == 1)
     {
         intersection_y = floor(ray_y / 64) * 64 + 64;
         ya = 64;
@@ -200,29 +200,34 @@ void vertical_ray_cast(t_vars *vars)
     angle = vars->player_angle * M_PI / 180.0;
 
     // Player is facing right
-    if (check_player_direction(vars) == 3)
+    if (check_player_direction(vars, 0) == 3)
     {
         intersection_x = floor(ray_x / 64) * 64 + 64;
         xa = 64.0;
+        intersection_y = ray_y + (ray_x - intersection_x) * tan(angle);
+        ya = 64 * tan(angle);
     }
     // Player is facing left
-    if (check_player_direction(vars) == 4)
+    if (check_player_direction(vars, 0) == 4)
     {
         intersection_x = floor(ray_x / 64) * 64 - 1;
         xa = -64.0;
+        intersection_y = ray_y + (ray_x - intersection_x) * -tan(angle);
+        ya = 64 * -tan(angle);
     }
-    intersection_y = ray_y + (ray_x - intersection_x) * tan(angle);
-    ya = 64.0 * (double)tan(angle);
-
     distance_vertical = 0.0;
     while (!is_wall((int)(intersection_x / 64), (int)(intersection_y / 64)))
     {
         intersection_x += xa;
         intersection_y += ya;
     }
-    distance_vertical = sqrt(pow(vars->player_x - intersection_x, 2) + pow(vars->player_y - intersection_y, 2));
-    drawline(vars, intersection_x, intersection_y);
+   if (intersection_x >= 0 && intersection_x < 800 && intersection_y >= 0 && intersection_y < 600)
+    {
+        mlx_pixel_put(vars->mlx, vars->win, intersection_x, intersection_y, 0xFF9800);
+        drawline(vars, intersection_x, intersection_y);
+    }
 }
+
 
 int key_hook(int keycode, t_vars *vars)
 {
@@ -270,7 +275,7 @@ int main(void) {
     vars.mlx = mlx_init();
     vars.win = mlx_new_window(vars.mlx, 800, 600, "Cub3D");
     vars.player_x = -1; // Position initiale du joueur
-    vars.player_angle = 270.0; // Angle initial du joueur
+    vars.player_angle = 10.0; // Angle initial du joueur
     mlx_hook(vars.win, 17, 0, close_window, &vars);
     mlx_hook(vars.win, 2, 0, key_hook, &vars);
     mlx_clear_window(vars.mlx, vars.win);
