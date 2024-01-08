@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noni <noni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/08 14:23:45 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:10:23 by noni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_HPP
 
 #include <stdlib.h>
-#include <mlx.h>
+# include "./miniLibX/mlx.h"
 #include <math.h>
 #include <stdio.h>
 

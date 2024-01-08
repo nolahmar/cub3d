@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noni <noni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:25:07 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/08 18:20:47 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:49:32 by noni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,47 +100,24 @@ void vertical_ray_cast(t_vars *vars)
     }
 }
 
-/*void ray_cast(t_vars *vars)
+void ray_cast(t_vars *vars)
 {
-    vars->ray->h_distance = 1e6;
-    vars->ray->v_distance = 1e6;
-    vars->ray->angle = vars->player_angle * M_PI / 180.0;
-    check_ray_direction(vars->ray);
-    horizontal_ray_cast(vars);
-    vertical_ray_cast(vars);
-    // printf("h_dis: [%f] v_dis: [%f]\n", vars->ray->h_distance, vars->ray->v_distance);
-    if (vars->ray->h_distance <= vars->ray->v_distance)
-    {
-        vars->ray->intersection_x = vars->ray->h_x_intersection;
-        vars->ray->intersection_y = vars->ray->h_y_intersection;
-        vars->ray->distance = vars->ray->h_distance;
-    }
-    else
-    {
-        vars->ray->intersection_x = vars->ray->v_x_intersection;
-        vars->ray->intersection_y = vars->ray->v_y_intersection;
-        vars->ray->distance = vars->ray->v_distance;
-    }
-    drawline(vars, vars->ray->intersection_x, vars->ray->intersection_y, 0xFF0000);
-}*/
+    int i;
 
-    void ray_cast(t_vars *vars)
-{
-    vars->ray->h_distance = 1e6;
-    vars->ray->v_distance = 1e6;
-
-    double fov_angle = FOV;
-
-    vars->ray->angle = vars->player_angle * M_PI / 180.0 - fov_angle / 2.0;
-    double angle_increment = fov_angle / (double)WINDOW_WIDTH;
-
-    for (int i = 0; i < WINDOW_WIDTH; i++)
-    {
-        vars->ray->angle += angle_increment;
+    i = -FOV /2;
+     while(i <= FOV / 2) {
+        double current_angle = vars->player_angle + i;
+        
+        // Assurez-vous que l'angle est compris entre 0 et 360 degrés
+        current_angle = fmod(current_angle + 360, 360);
+        
+        vars->ray->h_distance = 1e6;
+        vars->ray->v_distance = 1e6;
+        vars->ray->angle = current_angle * M_PI / 180.0;
         check_ray_direction(vars->ray);
         horizontal_ray_cast(vars);
         vertical_ray_cast(vars);
-
+        
         if (vars->ray->h_distance <= vars->ray->v_distance)
         {
             vars->ray->intersection_x = vars->ray->h_x_intersection;
@@ -153,8 +130,9 @@ void vertical_ray_cast(t_vars *vars)
             vars->ray->intersection_y = vars->ray->v_y_intersection;
             vars->ray->distance = vars->ray->v_distance;
         }
-
+        
         drawline(vars, vars->ray->intersection_x, vars->ray->intersection_y, 0xFF0000);
+        ++i;
     }
 }
 
