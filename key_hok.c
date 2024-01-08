@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:30:21 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/06 16:35:17 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:45:18 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int close_window(void *param) {
     t_vars *vars = (t_vars *)param;
 
+    free(vars->ray);
     mlx_destroy_window(vars->mlx, vars->win);
     exit(0);
 }
@@ -22,7 +23,7 @@ int close_window(void *param) {
 int key_hook(int keycode, t_vars *vars)
 {
     double move_step = 5.0;
-    double rotate_step = 3.0;
+    double rotate_step = 2.0;
 
     if (keycode == 53) // Touche ESC pour quitter
         close_window(vars);
@@ -35,8 +36,10 @@ int key_hook(int keycode, t_vars *vars)
     }
     else if (keycode == 1) // Touche S pour reculer
     {
+        // printf("heeeere\n");
         vars->player_x -= move_step * cos(vars->player_angle * M_PI / 180);
         vars->player_y -= move_step * sin(vars->player_angle * M_PI / 180);
+        // printf("player x: [%f] player y: [%f]\n", vars->player_x, vars->player_y);
     }
     else if (keycode == 0) // Touche A pour tourner à gauche
     {
@@ -50,6 +53,9 @@ int key_hook(int keycode, t_vars *vars)
         if (vars->player_angle >= 360)
             vars->player_angle -= 360;
     }
+     if (vars->player_angle == 0 || vars->player_angle == 90
+    || vars->player_angle == 180 || vars->player_angle == 270)
+        vars->player_angle += 1e-3;
     //printf("Angle: %.2f\n", vars->player_angle);
     mlx_clear_window(vars->mlx, vars->win);
     draw_map(vars);

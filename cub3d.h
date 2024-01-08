@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/06 18:53:03 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:23:45 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_ray {
     double v_x_intersection;
     double v_y_intersection;
     double v_distance;
+    int     is_down;
+    int     is_right;
 } t_ray;
 
 typedef struct s_vars {
@@ -56,8 +58,8 @@ void draw_player(t_vars *vars);
 void drawline(t_vars *vars, int x1, int y1, int color);
 int close_window(void *param);
 int key_hook(int keycode, t_vars *vars);
-int check_player_direction(t_vars *vars, int ray_cast_type);
-int is_wall(t_vars *vars, double x, double y, int ray_cast_type);
+void check_ray_direction(t_ray *ray);
+int is_wall(double x, double y);
 // t_ray   initialize_ray(double x, double y, double angle);
 void horizontal_ray_cast(t_vars *vars);
 // void vertical_ray_cast(t_vars *vars);

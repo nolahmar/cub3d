@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:33:29 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/06 18:52:29 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:07:49 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,27 @@ int map[MAP_WIDTH][MAP_HEIGHT] = {
 /*8*/    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
-int check_player_direction(t_vars *vars, int ray_cast_type)
+void check_ray_direction(t_ray *ray)
 {
-    if (ray_cast_type == 1 && vars->player_angle >= 0 && vars->player_angle <= 180) //Player is facing down
-        return (1);
-    if (ray_cast_type == 1 && vars->player_angle >= 180 && vars->player_angle <= 360) //Player is facing up
-        return (2);
-    if (vars->player_angle >= 270 || vars->player_angle <= 90) //Player is facing rigth
-        return (3);
-    if (vars->player_angle >= 90 && vars->player_angle <= 270) //Player is facing left
-        return (4);
-    return (0);
+    ray->is_down = 0;
+    ray->is_right = 0;
+    if (ray->angle > 0 && ray->angle < M_PI)
+        ray->is_down = 1;
+    if (ray->angle < M_PI_2 || ray->angle > (3 * M_PI) / 2)
+        ray->is_right = 1;
 }
 
-int is_wall(t_vars *vars, double x, double y, int ray_cast_type) 
+int is_wall(double x, double y) 
 {
     int tmp_x;
     int tmp_y;
     
-    if (x == vars->player_x && (check_player_direction(vars, ray_cast_type) == 4))
-        x -= 1;
-    if (y == vars->player_y && (check_player_direction(vars, ray_cast_type) == 2))
-        x -= 1;
     tmp_x = (int)(x / TILE_SIZE);
     tmp_y = (int)(y / TILE_SIZE);
     if (tmp_x >= 0 && tmp_x < MAP_WIDTH && tmp_y >= 0 && tmp_y < MAP_HEIGHT) {
-        return map[tmp_y][tmp_x];
+        if (map[tmp_y][tmp_x] == 1)
+            return 1;
+        return 0;
     }
     return 2; 
 }
@@ -68,8 +63,6 @@ int main(void) {
     mlx_clear_window(vars.mlx, vars.win);
     draw_map(&vars);
     draw_player(&vars);
-    //horizontal_ray_cast(&vars, &ray);
-    // vertical_ray_cast(&vars, ray);
     ray_cast(&vars);
     mlx_loop(vars.mlx);
     return (0);
