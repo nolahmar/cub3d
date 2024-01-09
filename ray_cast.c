@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noni <noni@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:25:07 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/08 20:49:32 by noni             ###   ########.fr       */
+/*   Updated: 2024/01/09 16:48:03 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void horizontal_ray_cast(t_vars *vars)
     ray->xa = TILE_SIZE / (double)tan(ray->angle);
     if ((!ray->is_right && ray->xa > 0) || (ray->is_right && ray->xa < 0))
         ray->xa *= -1;
-    printf("y: [%f] x: [%f]\n", ray->h_y_intersection, ray->h_x_intersection);
+    // printf("y: [%f] x: [%f]\n", ray->h_y_intersection, ray->h_x_intersection);
     while (!hit_wall) {
         hit_wall = is_wall(ray->h_x_intersection, ray->h_y_intersection);
         if (hit_wall == 1)
@@ -100,15 +100,38 @@ void vertical_ray_cast(t_vars *vars)
     }
 }
 
-void ray_cast(t_vars *vars)
+void draw_3d(t_vars *vars)
 {
     int i;
+    double wall_height;
 
-    i = -FOV /2;
-     while(i <= FOV / 2) {
-        double current_angle = vars->player_angle + i;
-        
-        // Assurez-vous que l'angle est compris entre 0 et 360 degrés
+    i = 0;
+    while (i < WINDOW_WIDTH)
+    {
+        wall_height = (TILE_SIZE / vars->ray->distance) * 255;
+        double constant_factor = TILE_SIZE/ 255.0;
+        wall_height = constant_factor * 255;
+        int wall_start = (WINDOW_HEIGHT - wall_height) / 2;
+        wall_start += WINDOW_HEIGHT / 2;
+        int j = wall_start;
+        while (j < wall_start + wall_height)
+        {
+            mlx_pixel_put(vars->mlx, vars->win, i, j, 0xFF0000);
+            j++;
+        }
+        i++;
+    }
+}
+
+void ray_cast(t_vars *vars)
+{
+    double current_angle;
+    int i;
+
+    current_angle = vars->player_angle - (FOV / 2);
+    i = 0;
+     while(i <= WINDOW_WIDTH)
+     {
         current_angle = fmod(current_angle + 360, 360);
         
         vars->ray->h_distance = 1e6;
@@ -117,7 +140,6 @@ void ray_cast(t_vars *vars)
         check_ray_direction(vars->ray);
         horizontal_ray_cast(vars);
         vertical_ray_cast(vars);
-        
         if (vars->ray->h_distance <= vars->ray->v_distance)
         {
             vars->ray->intersection_x = vars->ray->h_x_intersection;
@@ -130,10 +152,10 @@ void ray_cast(t_vars *vars)
             vars->ray->intersection_y = vars->ray->v_y_intersection;
             vars->ray->distance = vars->ray->v_distance;
         }
-        
         drawline(vars, vars->ray->intersection_x, vars->ray->intersection_y, 0xFF0000);
-        ++i;
-    }
+        //draw_3d(vars);
+        i++;
+        current_angle += FOV / (double)WINDOW_WIDTH;
+        printf("current_angle: [%f]\n", current_angle);
+     }
 }
-
-    
