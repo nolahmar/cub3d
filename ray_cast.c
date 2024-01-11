@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:25:07 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/10 18:32:00 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:09:56 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void horizontal_ray_cast(t_vars *vars)
     hit_wall = 0;
     ray = vars->ray;
     ray->h_y_intersection = floor(vars->player_y / (double)TILE_SIZE) * TILE_SIZE;
-    // printf("after: h_x_intersection: [%f] h_y_intersection: [%f]\n", ray->h_x_intersection, ray->h_y_intersection);
     if (ray->is_down)
     {
         ray->h_y_intersection += TILE_SIZE;
@@ -95,6 +94,16 @@ void vertical_ray_cast(t_vars *vars)
     }
 }
 
+void put_pixel(char* data, int x, int y, int color, int size_line)
+{
+    char *offset;
+    
+    if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
+    {
+        offset = data + (y * size_line) + (x * 4);
+        *(unsigned int*)offset = color;
+    }
+}
 
 void draw_3d(t_vars *vars, int x)
 {
@@ -104,7 +113,10 @@ void draw_3d(t_vars *vars, int x)
     double b;
     double distance;
     double wall_height;
-    
+    char *data;
+    int size_line;
+    int bits_per_pixel;
+    int endian;
 
     b = (vars->player_angle * M_PI / 180.0) - vars->ray->angle;
     y = 0;
@@ -113,20 +125,13 @@ void draw_3d(t_vars *vars, int x)
     wall_height = (TILE_SIZE / vars->ray->distance) * distance;
     start_wall = (WINDOW_HEIGHT / 2) - (wall_height / 2);
     end_wall = (WINDOW_HEIGHT / 2) + (wall_height / 2);
-    
+    data = mlx_get_data_addr (vars->image, &bits_per_pixel, &size_line, &endian);
     for (y = 0; y < start_wall; y++)
-    {
-        mlx_pixel_put(vars->mlx, vars->win, x, y, 0xADD8E6);
-    }
-
+        put_pixel(data, x, y, 0xADD8E6, size_line);
     for (y = end_wall; y < WINDOW_HEIGHT; y++)
-    {
-        mlx_pixel_put(vars->mlx, vars->win, x, y, 0xFFC7C7);
-    }
+        put_pixel(data, x, y, 0xFFC7C7, size_line);
     for (y = start_wall; y <= end_wall; y++)
-    {
-        mlx_pixel_put(vars->mlx, vars->win, x, y, 0xFF0060);
-    }
+        put_pixel(data, x, y, 0xFF0060, size_line);
 }
 
 void ray_cast(t_vars *vars)

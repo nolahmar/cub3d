@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/09 16:47:16 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:57:53 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 # define CUB3D_HPP
 
 #include <stdlib.h>
-# include "mlx.h"
+# include <mlx.h>
 #include <math.h>
 #include <stdio.h>
 
 #define MAP_WIDTH 10
 #define MAP_HEIGHT 10
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
 #define TILE_SIZE 64
 #define FOV 60
 
@@ -48,9 +48,17 @@ typedef struct s_ray {
 typedef struct s_vars {
     void *mlx;
     void *win;
+    void *image;
     double player_x;
     double player_y;
+    double next_x;
+    double next_y;
+    double move_angle;
     double  player_angle;
+    int     key_w;
+    int     key_s;
+    int     key_a;
+    int     key_d;
     t_ray *ray;
 } t_vars;
 
@@ -65,5 +73,6 @@ int is_wall(double x, double y);
 void horizontal_ray_cast(t_vars *vars);
 // void vertical_ray_cast(t_vars *vars);
 void ray_cast(t_vars *vars);
+int update(t_vars *vars);
 
 #endif

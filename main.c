@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:33:29 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/10 15:27:07 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:59:08 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,17 @@ int main(void) {
     // check if not ray
     vars.mlx = mlx_init();
     vars.win = mlx_new_window(vars.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
-    vars.player_x = -1; // Position initiale du joueur
+    vars.image = mlx_new_image(vars.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+    vars.player_x = (5 * TILE_SIZE) + (TILE_SIZE / 2);
+    vars.player_y = (4 * TILE_SIZE) + (TILE_SIZE / 2);
     vars.player_angle = 10.0; // Angle initial du joueur
+    vars.key_w = -1;
+    vars.key_s = -1;
+    vars.key_a = -1;
+    vars.key_d = -1;
     mlx_hook(vars.win, 17, 0, close_window, &vars);
     mlx_hook(vars.win, 2, 0, key_hook, &vars);
-    mlx_clear_window(vars.mlx, vars.win);
-    draw_map(&vars);
-    draw_player(&vars);
-    ray_cast(&vars);
+    mlx_loop_hook(vars.mlx, update, &vars);
     mlx_loop(vars.mlx);
     return (0);
 }
