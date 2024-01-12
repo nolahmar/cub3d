@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:33:29 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/11 12:59:08 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:44:31 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,33 @@ int is_wall(double x, double y)
     return 2; 
 }
 
+void init(t_vars *vars)
+{
+    t_image *image;
+
+    vars->ray = (t_ray*)malloc(sizeof(t_ray));
+    image = (t_image*)malloc(sizeof(t_image));
+    vars->mlx = mlx_init();
+    vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
+    image->ptr = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+    image->data = mlx_get_data_addr (image->ptr, &image->bits_per_pixel, &image->size_line, &image->endian);
+    vars->image = image;
+    vars->player_x = (5 * TILE_SIZE) + (TILE_SIZE / 2);
+    vars->player_y = (4 * TILE_SIZE) + (TILE_SIZE / 2);
+    vars->player_angle = 10.0;
+    vars->key_w = -1;
+    vars->key_s = -1;
+    vars->key_a = -1;
+    vars->key_d = -1;
+}
+
 int main(void) {
     t_vars vars;
 
-    vars.ray = (t_ray*)malloc(sizeof(t_ray));
-    // check if not ray
-    vars.mlx = mlx_init();
-    vars.win = mlx_new_window(vars.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
-    vars.image = mlx_new_image(vars.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-    vars.player_x = (5 * TILE_SIZE) + (TILE_SIZE / 2);
-    vars.player_y = (4 * TILE_SIZE) + (TILE_SIZE / 2);
-    vars.player_angle = 10.0; // Angle initial du joueur
-    vars.key_w = -1;
-    vars.key_s = -1;
-    vars.key_a = -1;
-    vars.key_d = -1;
+    init(&vars);
     mlx_hook(vars.win, 17, 0, close_window, &vars);
-    mlx_hook(vars.win, 2, 0, key_hook, &vars);
+    mlx_hook(vars.win, 2, 0, key_press, &vars);
+    mlx_hook(vars.win, 3, 0, key_release, &vars);
     mlx_loop_hook(vars.mlx, update, &vars);
     mlx_loop(vars.mlx);
     return (0);

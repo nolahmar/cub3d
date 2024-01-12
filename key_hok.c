@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:30:21 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/11 13:10:26 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:40:20 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int close_window(void *param) {
     exit(0);
 }
 
-int key_hook(int keycode, t_vars *vars)
+int key_press(int keycode, t_vars *vars)
 {
-    if (keycode == 53) // Touche ESC pour quitter
+    if (keycode == KEY_ESC)
         close_window(vars);
-    if (keycode == 13) // Touche W pour avancer
+    if (keycode == KEY_W)
     {
         vars->key_w = 1;
         if (!is_wall(vars->next_x, vars->next_y)) {
@@ -32,7 +32,7 @@ int key_hook(int keycode, t_vars *vars)
             vars->player_y = vars->next_y;
         }
     }  
-    else if (keycode == 1) // Touche S pour reculer
+    else if (keycode == KEY_S)
     {
         vars->key_s = 1;
         if (!is_wall(vars->next_x, vars->next_y)) 
@@ -41,10 +41,23 @@ int key_hook(int keycode, t_vars *vars)
             vars->player_y = vars->next_y;
         }
     }
-    else if (keycode == 0) // Touche A pour tourner à gauche
+    else if (keycode == KEY_A)
         vars->key_a = 1;
-    else if (keycode == 2) // Touche D pour tourner à droite
+    else if (keycode == KEY_D)
         vars->key_d = 1;
+    return (0);
+}
+
+int key_release(int keycode, t_vars *vars)
+{
+    if (keycode == KEY_W)
+        vars->key_w = -1;
+    else if (keycode == KEY_S)
+        vars->key_s = -1;
+    else if (keycode == KEY_A)
+        vars->key_a = -1;
+    else if (keycode == KEY_D)
+        vars->key_d = -1;
     return (0);
 }
 
@@ -83,7 +96,7 @@ int update(t_vars *vars)
     // draw_map(vars);
     // draw_player(vars);
     ray_cast(vars);
-    mlx_put_image_to_window(vars->mlx, vars->win, vars->image, 0, 0);
+    mlx_put_image_to_window(vars->mlx, vars->win, vars->image->ptr, 0, 0);
     vars->key_w = -1;
     vars->key_s = -1;
     vars->key_a = -1;
