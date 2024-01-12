@@ -1,6 +1,6 @@
 NAME = Cub3d
 
-SRC = main.c init_wind.c key_hok.c ray_cast.c 
+SRC = main.c  key_hok.c ray_cast.c horizontal_vertical_ray_cast.c draw_3d.c 
 
 CC = cc
 
