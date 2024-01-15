@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:33:29 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/12 16:48:03 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:42:53 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void init(t_vars *vars)
     vars->key_a = -1;
     vars->key_d = -1;
     vars->is_v_ray_cast = -1;
-    vars->is_h_ray_cast = -1;
 }
 
 int main(void) {

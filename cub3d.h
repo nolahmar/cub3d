@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/12 18:37:45 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:02:03 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@
 # define KEY_S 1
 # define KEY_A 0
 # define KEY_D 2
+# define KEY_GAUCHE 123
+# define KEY_DROIT 124
 # define KEY_ESC 53
 # define MOVE_STEP 10
 # define ROTATE_STEP 10
-# define RED (M_PI / 180)
 
 extern int  map[MAP_WIDTH][MAP_HEIGHT];
 
@@ -81,8 +82,9 @@ typedef struct s_vars
 	int		key_s;
 	int		key_a;
 	int		key_d;
+	int		key_gauche;
+	int		key_droit;
 	int		is_v_ray_cast;
-	int		is_h_ray_cast;
 	t_ray	*ray;
 	t_image	*image;
 }	t_vars;
@@ -97,5 +99,7 @@ int		is_wall(double x, double y);
 void	ray_cast(t_vars *vars);
 int		update(t_vars *vars);
 void	draw_3d(t_vars *vars, int x);
+void texture(t_vars *vars, int top, int bottom, int x);
+void    put_pixel(t_vars *vars, int x, int y, int color);
 
 #endif

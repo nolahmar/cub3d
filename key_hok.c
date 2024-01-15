@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:30:21 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/12 17:59:55 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:27:25 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ int key_press(int keycode, t_vars *vars)
         vars->key_w = 1; 
     else if (keycode == KEY_S)
         vars->key_s = 1;
-    else if (keycode == KEY_A)
-        vars->key_a = 1;
+    else if (keycode == KEY_GAUCHE)
+        vars->key_gauche = 1;
+    else if (keycode == KEY_DROIT)
+        vars->key_droit = 1;
     else if (keycode == KEY_D)
         vars->key_d = 1;
+    else if (keycode == KEY_A)
+        vars->key_a = 1;
     return (0);
 }
 
@@ -41,6 +45,10 @@ int key_release(int keycode, t_vars *vars)
         vars->key_w = -1;
     else if (keycode == KEY_S)
         vars->key_s = -1;
+    else if (keycode == KEY_GAUCHE)
+        vars->key_gauche = -1;
+    else if (keycode == KEY_DROIT)
+        vars->key_droit = -1;
     else if (keycode == KEY_A)
         vars->key_a = -1;
     else if (keycode == KEY_D)
@@ -52,8 +60,8 @@ void udapte_helper(t_vars *vars)
 {
      if (vars->key_w == 1)
     {
-        vars->delta_x = MOVE_STEP * cos(vars->player_angle * RED);
-        vars->delta_y = MOVE_STEP * sin(vars->player_angle * RED);
+        vars->delta_x = MOVE_STEP * cos(vars->player_angle * M_PI / 180);
+        vars->delta_y = MOVE_STEP * sin(vars->player_angle * M_PI / 180);
         vars->next_x = vars->player_x + vars->delta_x;
         vars->next_y = vars->player_y + vars->delta_y;
         if (!is_wall(vars->next_x, vars->next_y))
@@ -64,8 +72,32 @@ void udapte_helper(t_vars *vars)
     }
     else if (vars->key_s == 1)
     {
-        vars->delta_x = -MOVE_STEP * cos(vars->player_angle * RED);
-        vars->delta_y = -MOVE_STEP * sin(vars->player_angle * RED);
+        vars->delta_x = -MOVE_STEP * cos(vars->player_angle * M_PI / 180);
+        vars->delta_y = -MOVE_STEP * sin(vars->player_angle * M_PI / 180);
+        vars->next_x = vars->player_x + vars->delta_x;
+        vars->next_y = vars->player_y + vars->delta_y;
+        if (!is_wall(vars->next_x, vars->next_y))
+        {
+            vars->player_x = vars->next_x;
+            vars->player_y = vars->next_y;
+        }
+    }
+    else if (vars->key_d == 1)
+    {
+        vars->delta_x = -MOVE_STEP * cos((vars->player_angle - 90) * M_PI / 180);
+        vars->delta_y = -MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
+        vars->next_x = vars->player_x + vars->delta_x;
+        vars->next_y = vars->player_y + vars->delta_y;
+        if (!is_wall(vars->next_x, vars->next_y))
+        {
+            vars->player_x = vars->next_x;
+            vars->player_y = vars->next_y;
+        }
+    }
+    else if (vars->key_a == 1)
+    {
+        vars->delta_x = MOVE_STEP * cos((vars->player_angle - 90) * M_PI / 180);
+        vars->delta_y = MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
         vars->next_x = vars->player_x + vars->delta_x;
         vars->next_y = vars->player_y + vars->delta_y;
         if (!is_wall(vars->next_x, vars->next_y))
@@ -79,13 +111,13 @@ void udapte_helper(t_vars *vars)
 int update(t_vars *vars)
 {
     udapte_helper(vars);
-    if (vars->key_a == 1)
+    if (vars->key_gauche == 1)
     {
         vars->player_angle -= ROTATE_STEP;
         if (vars->player_angle < 0)
             vars->player_angle += 360;
     }
-    else if (vars->key_d == 1)
+    else if (vars->key_droit == 1)
     {
         vars->player_angle += ROTATE_STEP;
         if (vars->player_angle >= 360)

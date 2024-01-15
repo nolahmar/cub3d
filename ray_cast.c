@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:25:07 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/12 18:23:22 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:57:58 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void min_distance(t_vars *vars)
 {
     if (vars->ray->h_distance <= vars->ray->v_distance)
         {
-            vars->is_h_ray_cast = 1;
             vars->ray->intersection_x = vars->ray->h_x_intersection;
             vars->ray->intersection_y = vars->ray->h_y_intersection;
             vars->ray->distance = vars->ray->h_distance;
@@ -43,7 +42,7 @@ void ray_cast(t_vars *vars)
         
         vars->ray->h_distance = 1e6;
         vars->ray->v_distance = 1e6;
-        vars->ray->angle = current_angle * RED;
+        vars->ray->angle = current_angle * M_PI / 180;
         check_ray_direction(vars->ray);
         horizontal_ray_cast(vars);
         vertical_ray_cast(vars);
