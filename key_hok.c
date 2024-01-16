@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:30:21 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/15 15:27:25 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:33:38 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ int update(t_vars *vars)
     || vars->player_angle == 180 || vars->player_angle == 270)
         vars->player_angle += 1e-3;
     mlx_clear_window(vars->mlx, vars->win);
+    load_tex(vars, "./wall.xpm");
     ray_cast(vars);
-    mlx_put_image_to_window(vars->mlx, vars->win, vars->image->ptr, 0, 0);
+    mlx_put_image_to_window(vars->mlx, vars->win, vars->window_img->ptr, 0, 0);
     return (0);
 }

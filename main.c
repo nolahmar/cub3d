@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:33:29 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/15 14:42:53 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:17:24 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@ int is_wall(double x, double y)
 
 void init(t_vars *vars)
 {
-    t_image *image;
+    t_window_image *window_img;
 
     vars->ray = (t_ray*)malloc(sizeof(t_ray));
-    image = (t_image*)malloc(sizeof(t_image));
+    window_img = (t_window_image*)malloc(sizeof(t_window_image));
+    vars->txt_img = (t_texture_image*)malloc(sizeof(t_texture_image));
     vars->mlx = mlx_init();
     vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
-    image->ptr = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-    image->data = mlx_get_data_addr (image->ptr, &image->bits_per_pixel, &image->size_line, &image->endian);
-    vars->image = image;
+    window_img->ptr = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+    window_img->data = mlx_get_data_addr (window_img->ptr, &window_img->bits_per_pixel, \
+        &window_img->size_line, &window_img->endian);
+    vars->window_img = window_img;
     vars->player_x = (5 * TILE_SIZE) + (TILE_SIZE / 2);
     vars->player_y = (4 * TILE_SIZE) + (TILE_SIZE / 2);
     vars->player_angle = 10.0;
@@ -67,7 +69,6 @@ void init(t_vars *vars)
     vars->key_s = -1;
     vars->key_a = -1;
     vars->key_d = -1;
-    vars->is_v_ray_cast = -1;
 }
 
 int main(void) {

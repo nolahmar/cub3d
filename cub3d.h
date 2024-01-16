@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/15 17:02:03 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:30:22 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define KEY_GAUCHE 123
 # define KEY_DROIT 124
 # define KEY_ESC 53
-# define MOVE_STEP 10
-# define ROTATE_STEP 10
+# define MOVE_STEP 5
+# define ROTATE_STEP 5
 
 extern int  map[MAP_WIDTH][MAP_HEIGHT];
 
@@ -52,15 +52,27 @@ typedef struct s_ray
 	double	v_distance;
 	int		is_down;
 	int		is_right;
-}	t_ray;	
-typedef struct s_image
+}	t_ray;
+
+typedef struct s_window_image
 {
 	void	*ptr;
 	char	*data;
 	int32_t	bits_per_pixel;
 	int32_t	size_line;
 	int32_t	endian;
-}	t_image;
+}	t_window_image;
+
+typedef struct s_texture_image
+{
+	void	*ptr;
+	char	*data;
+	int32_t	bits_per_pixel;
+	int32_t	size_line;
+	int32_t	endian;
+	int32_t width;
+	int32_t height;
+}	t_texture_image;
 
 typedef struct s_vars
 {
@@ -86,7 +98,8 @@ typedef struct s_vars
 	int		key_droit;
 	int		is_v_ray_cast;
 	t_ray	*ray;
-	t_image	*image;
+	t_window_image	*window_img;
+	t_texture_image *txt_img;
 }	t_vars;
 
 void	horizontal_ray_cast(t_vars *vars);
@@ -99,7 +112,8 @@ int		is_wall(double x, double y);
 void	ray_cast(t_vars *vars);
 int		update(t_vars *vars);
 void	draw_3d(t_vars *vars, int x);
-void texture(t_vars *vars, int top, int bottom, int x);
 void    put_pixel(t_vars *vars, int x, int y, int color);
+int load_tex(t_vars *vars, char *path);
+void texture(t_vars *vars, int x);
 
 #endif

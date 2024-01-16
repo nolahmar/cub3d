@@ -6,44 +6,53 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:41:35 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/15 17:03:14 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:29:54 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-unsigned int get_pixel_color(t_vars *vars, int offset_x, int offset_y)
+int load_tex(t_vars *vars, char *path)
 {
-    char *image_data;
-    int bit_par_pixel;
-    int size_line;
-    int pixel_index;
-    unsigned int color;
+    t_texture_image *image;
     
-     image_data = vars->image->ptr;
-     bit_par_pixel = vars->image->bits_per_pixel / 8;
-     size_line = vars->image->size_line; 
-     pixel_index = offset_y * size_line + offset_x * bit_par_pixel;
-     color = *((unsigned int *)(image_data + pixel_index));
-     return (color);
+    image = vars->txt_img;
+    if (path)
+    {
+        if ((image->ptr = mlx_xpm_file_to_image(vars->mlx, path, &image->width, &image->height)))
+            image->data = mlx_get_data_addr(image->ptr, &image->bits_per_pixel, &image->size_line, &image->endian);
+        else
+            return (0);
+    }
+    return (1);
 }
 
-void texture(t_vars *vars, int top, int bottom, int x)
+
+void texture(t_vars *vars, int x)
 {
     int y;
     int offset_x;
-    int offset_y;
+    double offset_y;
     unsigned int texel;
+    double y_step;
+    int *data;
+    int pixel_index;
 
+    y_step = vars->txt_img->height / (double)(vars->end_wall - vars->start_wall);
+    offset_y = 0;
     if (vars->is_v_ray_cast == 1)
-        offset_x = (int)vars->ray[x].v_distance % TILE_SIZE;
+        offset_x = (int)vars->ray->intersection_y % TILE_SIZE;
     else
-        offset_y = (int)vars->ray[x].h_distance % TILE_SIZE;
-    y = top;
-    while (y < bottom)
+        offset_x = (int)vars->ray->intersection_x % TILE_SIZE;
+    data = (int*)vars->txt_img->data;
+    y = vars->start_wall;
+    while (y <= vars->end_wall)
     {
-       texel = get_pixel_color(vars, offset_x, offset_y);
+        pixel_index = (int)((int)offset_y * vars->txt_img->width + offset_x);
+        if (pixel_index < vars->txt_img->width * vars->txt_img->height)
+            texel = data[pixel_index];
         put_pixel(vars, x, y, texel);
         y++;
+        offset_y += y_step;
     }   
 }

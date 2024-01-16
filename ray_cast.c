@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:25:07 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/15 13:57:58 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:59:21 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void min_distance(t_vars *vars)
 {
     if (vars->ray->h_distance <= vars->ray->v_distance)
-        {
+        {   vars->is_v_ray_cast = 0;
             vars->ray->intersection_x = vars->ray->h_x_intersection;
             vars->ray->intersection_y = vars->ray->h_y_intersection;
             vars->ray->distance = vars->ray->h_distance;
@@ -33,7 +33,7 @@ void ray_cast(t_vars *vars)
 {
     double current_angle;
     int i;
-
+   // load_tex(vars, "./wall.xpm");
     current_angle = vars->player_angle - (FOV / 2);
     i = 0;
      while(i <= WINDOW_WIDTH)

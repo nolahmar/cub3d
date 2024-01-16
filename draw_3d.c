@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:23:11 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/15 17:04:48 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:24:16 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void    put_pixel(t_vars *vars, int x, int y, int color)
 
     if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
     {
-        offset = vars->image->data + (y * vars->image->size_line) + (x * 4);
+        offset = vars->window_img->data + (y * vars->window_img->size_line) + (x * 4);
         *(unsigned int*)offset = color;
     }
 }
@@ -41,6 +41,8 @@ void    draw_3d(t_vars *vars, int x)
     while (++y < WINDOW_HEIGHT)
         put_pixel(vars, x, y, 0xFFC7C7);
     y = vars->start_wall - 1;
-    while (++y <= vars->end_wall)
-        put_pixel(vars, x, y, 0xFF0060);
+    //while (++y <= vars->end_wall)
+        //put_pixel(vars, x, y, 0xFF0060);
+        texture(vars, x);
+    
 }
