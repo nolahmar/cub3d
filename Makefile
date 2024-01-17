@@ -1,19 +1,34 @@
 NAME = Cub3d
+LIBFT = libft/libft.a
 
-SRC = main.c  key_hok.c ray_cast.c horizontal_vertical_ray_cast.c draw_3d.c textur_mapping.c
+SRC =  ./parsing/color_texture.c \
+		./parsing/map.c \
+		./parsing/parse_cub.c \
+		./parsing/parse.c \
+		./parsing/text_col_err.c \
+		./parsing/text_col_utils.c \
+		./parsing/texture_color.c \
+		./parsing/utils.c \
+		./parsing/utils2.c\
+		./src/main.c \
+		./scr/draw_3d.c \
+		./src/horizontal_vertical_ray_cast.c \
+		./src/key_hok.c \
+		./src/ray_cast.c \
+		./src/textur_mapping.c \
 
 CC = cc
-
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-
 OBJ = $(SRC:.c=.o)
-
 MLX = -lmlx -framework OpenGL -framework Appkit
 
 all : ${NAME}
 
-$(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(MLX) $(SRC) -o $(NAME)
+$(NAME) : $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(MLX) $(SRC) $(LIBFT) -o $(NAME)
+
+$(LIBFT):
+	$(MAKE) -Clibft
 
 clean:
 	rm -f $(OBJ) 
@@ -22,3 +37,4 @@ fclean: clean
 	rm -f $(NAME)
 
 re : fclean all
+
