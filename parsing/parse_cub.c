@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:55:15 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:58:43 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	check_name_cub(char *str)
 {
+	// char *s = ft_strdup(str);
 	if (str != NULL)
 	{
 		if (!ft_strchr(str, '.'))
 			return (0);
+		printf("len[%lu]\n", ft_strlen(str) - 4);
 		if (str[ft_strlen(str) - 4] != '.'
 			|| str[ft_strlen(str) - 3] != 'c'
 			|| str[ft_strlen(str) - 2] != 'u'

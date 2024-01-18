@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/17 16:17:19 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/18 19:09:30 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 # define CUB3D_H
 
 # include <stdlib.h>
-# include "../miniLibX/mlx.h"
+# include "../mlx/mlx.h"
 # include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-# define MAP_WIDTH 10
-# define MAP_HEIGHT 10
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define TILE_SIZE 64
@@ -37,8 +35,6 @@
 # define MOVE_STEP 7
 # define ROTATE_STEP 5
 # define MAX_LINE_LENGTH 256
-
-extern int  map[MAP_WIDTH][MAP_HEIGHT];
 
 typedef struct s_ray
 {
@@ -67,44 +63,17 @@ typedef struct s_window_image
 	int32_t	endian;
 }	t_window_image;
 
-typedef struct s_texture_image
-{
-	void	*ptr;
-	char	*data;
-	int32_t	bits_per_pixel;
-	int32_t	size_line;
-	int32_t	endian;
-	int32_t width;
-	int32_t height;
-}	t_texture_image;
+// typedef struct s_texture_image
+// {
+// 	void	*ptr;
+// 	char	*data;
+// 	int32_t	bits_per_pixel;
+// 	int32_t	size_line;
+// 	int32_t	endian;
+// 	int32_t width;
+// 	int32_t height;
+// }	t_texture_image;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*win;
-	double	player_x;
-	double	player_y;
-	double	next_x;
-	double	next_y;
-	double	delta_x;
-	double	delta_y;
-	double	move_angle;
-	double	start_wall;
-	double	end_wall;
-	double	dst_to_plane;
-	double	wall_height;
-	double	player_angle;
-	int		key_w;
-	int		key_s;
-	int		key_a;
-	int		key_d;
-	int		key_gauche;
-	int		key_droit;
-	int		is_v_ray_cast;
-	t_ray	*ray;
-	t_window_image	*window_img;
-	t_texture_image *txt_img;
-}	t_vars;
 
 typedef struct MapLine
 {
@@ -117,7 +86,11 @@ typedef struct Texture
 	char	*path;
 	int		width;
 	int		height;
-	void	*img;
+	void	*ptr;
+	char	*data;
+	int32_t	bits_per_pixel;
+	int32_t	size_line;
+	int32_t	endian;
 }	t_Texture;
 
 typedef struct Position
@@ -157,19 +130,47 @@ typedef struct GlobaleData
 	t_Position	playerposition;
 }	t_GlobaleData;
 
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+	double	player_x;
+	double	player_y;
+	double	next_x;
+	double	next_y;
+	double	delta_x;
+	double	delta_y;
+	double	move_angle;
+	double	start_wall;
+	double	end_wall;
+	double	dst_to_plane;
+	double	wall_height;
+	double	player_angle;
+	int		key_w;
+	int		key_s;
+	int		key_a;
+	int		key_d;
+	int		key_gauche;
+	int		key_droit;
+	int		is_v_ray_cast;
+	t_ray	*ray;
+	t_window_image	*window_img;
+	t_GlobaleData	*data;
+}	t_vars;
+
 void	horizontal_ray_cast(t_vars *vars);
 void	vertical_ray_cast(t_vars *vars);
 int		close_window(t_vars *vars);
 int		key_press(int keycode, t_vars *vars);
 int		key_release(int keycode, t_vars *vars);
 void	check_ray_direction(t_ray *ray);
-int		is_wall(double x, double y);
+int		is_wall(t_Map *map, double x, double y);
 void	ray_cast(t_vars *vars);
 int		update(t_vars *vars);
 void	draw_3d(t_vars *vars, int x);
 void    put_pixel(t_vars *vars, int x, int y, int color);
-int load_tex(t_vars *vars, char *path);
-void texture(t_vars *vars, int x);
+int		load_tex(t_vars *vars);
+void	texture(t_vars *vars, int x);
 void	check_player_pos(t_GlobaleData *gameMap);
 void	remove_extra_spaces(char *str);
 int		checkcolor(char *str);

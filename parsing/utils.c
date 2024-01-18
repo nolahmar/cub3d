@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:29:31 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/17 15:02:30 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:06:15 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	remove_extra_spaces(char *str)
 
 	i = 0;
 	j = 0;
-	while (str[i] != '\0')
+	while (str[i] != '\0' && str[i] != '\n')
 	{
 		if (!is_space(str[i]) || (i > 0 && !is_space(str[i - 1])))
 			str[j++] = str[i];

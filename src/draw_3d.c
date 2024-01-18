@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:23:11 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/17 16:10:42 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:23:38 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void    draw_3d(t_vars *vars, int x)
     int     y;
     double  beta;
    
+    // load_tex(vars);
     beta = (vars->player_angle * M_PI / 180) - vars->ray->angle;
     y = -1;
     vars->ray->distance *= cos(beta);
@@ -41,8 +42,6 @@ void    draw_3d(t_vars *vars, int x)
     while (++y < WINDOW_HEIGHT)
         put_pixel(vars, x, y, 0xFFC7C7);
     y = vars->start_wall - 1;
-    //while (++y <= vars->end_wall)
-        //put_pixel(vars, x, y, 0xFF0060);
-        texture(vars, x);
+    texture(vars, x);
     
 }

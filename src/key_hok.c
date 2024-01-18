@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:30:21 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/17 14:51:24 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:28:34 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void    move_w_s(t_vars *vars)
         vars->delta_y = MOVE_STEP * sin(vars->player_angle * M_PI / 180);
         vars->next_x = vars->player_x + vars->delta_x;
         vars->next_y = vars->player_y + vars->delta_y;
-        if (!is_wall(vars->next_x, vars->next_y))
+        if (!is_wall(&vars->data->map, vars->next_x, vars->next_y))
         {
             vars->player_x = vars->next_x;
             vars->player_y = vars->next_y;
@@ -68,7 +68,7 @@ void    move_w_s(t_vars *vars)
         vars->delta_y = -MOVE_STEP * sin(vars->player_angle * M_PI / 180);
         vars->next_x = vars->player_x + vars->delta_x;
         vars->next_y = vars->player_y + vars->delta_y;
-        if (!is_wall(vars->next_x, vars->next_y))
+        if (!is_wall(&vars->data->map, vars->next_x, vars->next_y))
         {
             vars->player_x = vars->next_x;
             vars->player_y = vars->next_y;
@@ -85,7 +85,7 @@ void udapte_helper(t_vars *vars)
         vars->delta_y = -MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
         vars->next_x = vars->player_x + vars->delta_x;
         vars->next_y = vars->player_y + vars->delta_y;
-        if (!is_wall(vars->next_x, vars->next_y))
+        if (!is_wall(&vars->data->map, vars->next_x, vars->next_y))
         {
             vars->player_x = vars->next_x;
             vars->player_y = vars->next_y;
@@ -97,7 +97,7 @@ void udapte_helper(t_vars *vars)
         vars->delta_y = MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
         vars->next_x = vars->player_x + vars->delta_x;
         vars->next_y = vars->player_y + vars->delta_y;
-        if (!is_wall(vars->next_x, vars->next_y))
+        if (!is_wall(&vars->data->map, vars->next_x, vars->next_y))
         {
             vars->player_x = vars->next_x;
             vars->player_y = vars->next_y;
@@ -125,7 +125,6 @@ int update(t_vars *vars)
     || vars->player_angle == 180 || vars->player_angle == 270)
         vars->player_angle += 1e-3;
     mlx_clear_window(vars->mlx, vars->win);
-    load_tex(vars, "../wall.xpm");
     ray_cast(vars);
     mlx_put_image_to_window(vars->mlx, vars->win, vars->window_img->ptr, 0, 0);
     return (0);
