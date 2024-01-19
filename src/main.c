@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:33:29 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/18 19:06:56 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:59:21by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,23 @@ void check_ray_direction(t_ray *ray)
         ray->is_right = 1;
 }
 
-int is_wall(t_Map *map, double x, double y) 
+int is_wall(t_vars *vars, double x, double y) 
 {
     int tmp_x;
     int tmp_y;
-    
+    t_Map *map;
+
+    map = &vars->data->map;
+    // if (!vars->ray->is_right && x == vars->ray->v_x_intersection)
+    // {
+    //     vars->ray->v_x_intersection += 1;
+    //     x -= 1;
+    // }
+    // if (!vars->ray->is_down && y == vars->ray->h_y_intersection)
+    // {
+    //     vars->ray->h_y_intersection += 1;
+    //     y -= 1;
+    // }
     tmp_x = (int)(x / TILE_SIZE);
     tmp_y = (int)(y / TILE_SIZE);
     if (tmp_x >= 0 && tmp_x < map->width && tmp_y >= 0 && tmp_y < map->height) {

@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:41:05 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/18 15:57:24 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:53:05 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	check_map_validity(t_Map map)
 				n += 1;
 			else if (map.data[i][j] != '0' && map.data[i][j] != '1'
 				&& map.data[i][j] != ' ' && map.data[i][j] != '\n')
-				print_error("Error: map\n", 1);
+				print_error("Error : the map is not valide \n", 1);
 			j++;
 		}
 		i++;
 	}
 	if (n != 1)
-		print_error("Error: map\n", 1);
+		print_error("Error :\nthere is no (N S W E)/there is more then 1\n", 1);
 }
 
 int	check_map_delimited(t_Map map)
@@ -66,15 +66,15 @@ void	check_player_pos_help(t_GlobaleData *gameMap, int x, int y)
 {
 	gameMap->playerposition.x = x;
 	gameMap->playerposition.y = y;
-	if (gameMap->map.data[y][x] == 'N')
+	if (gameMap->map.data[y][x] == 'E')
 		gameMap->playerposition.angle = 0;
-	else if (gameMap->map.data[y][x] == 'S')
-		gameMap->playerposition.angle = 180;
-	else if (gameMap->map.data[y][x] == 'E')
-		gameMap->playerposition.angle = 90;
 	else if (gameMap->map.data[y][x] == 'W')
+		gameMap->playerposition.angle = 180;
+	else if (gameMap->map.data[y][x] == 'S')
+		gameMap->playerposition.angle = 90;
+	else if (gameMap->map.data[y][x] == 'N')
 		gameMap->playerposition.angle = 270;
-	gameMap->map.data[y][x] = '0'; // todo: remove this
+	// gameMap->map.data[y][x] = '0'; // todo: remove this
 }
 
 void	check_player_pos(t_GlobaleData *gameMap)
@@ -103,7 +103,7 @@ void	check_player_pos(t_GlobaleData *gameMap)
 		y++;
 	}
 	if (found == 0)
-		print_error("ERROR: map\n", 1);
+		print_error("ERROR:\nLE JOUEUR N'EST PAS TROUVE DANS LA CARTE !\n", 1);
 }
 
 void	ft_map(t_GlobaleData *ptr)
@@ -117,7 +117,7 @@ void	ft_map(t_GlobaleData *ptr)
 	ptr->map.height = get_number_of_rows(ptr->mapline);
 	ptr->map.data = (char **)malloc(sizeof(char *) * (ptr->map.height + 1));
 	if (ptr->map.data == NULL)
-		print_error("Error: map\n", 1);
+		print_error("Error:\nMemory allocation failed for map data\n", 1);
 	while (i < ptr->map.height)
 	{
 		ptr->map.data[i] = fixline(current->content, ptr->map.width);
@@ -130,5 +130,5 @@ void	ft_map(t_GlobaleData *ptr)
 	check_map_validity(ptr->map);
 	check_player_pos(ptr);
 	if (check_map_delimited(ptr->map) == 0)
-		print_error("ERROR: map\n", 1);
+		print_error("ERROR:\nMAP DELIMITATION ERROR\n", 1);
 }

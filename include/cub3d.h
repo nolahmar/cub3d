@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/18 19:09:30 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/19 18:18:19 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_ray
 	double	v_distance;
 	int		is_down;
 	int		is_right;
+	int 	is_ver;
 }	t_ray;
 
 typedef struct s_window_image
@@ -164,7 +165,7 @@ int		close_window(t_vars *vars);
 int		key_press(int keycode, t_vars *vars);
 int		key_release(int keycode, t_vars *vars);
 void	check_ray_direction(t_ray *ray);
-int		is_wall(t_Map *map, double x, double y);
+int		is_wall(t_vars *vars, double x, double y);
 void	ray_cast(t_vars *vars);
 int		update(t_vars *vars);
 void	draw_3d(t_vars *vars, int x);

@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:17:13 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/18 19:30:02 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:49:22 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ void horizontal_ray_cast(t_vars *vars)
     if ((!ray->is_right && ray->xa > 0) || (ray->is_right && ray->xa < 0))
         ray->xa *= -1;
     while (!hit_wall) {
-        hit_wall = is_wall(&vars->data->map, ray->h_x_intersection, ray->h_y_intersection);
+        hit_wall = is_wall(vars, ray->h_x_intersection, ray->h_y_intersection);
         if (hit_wall == 1)
-            ray->h_distance = sqrt(pow(vars->player_x - ray->h_x_intersection, 2) + pow(vars->player_y - ray->h_y_intersection, 2));
+        {
+            ray->h_distance = sqrt(pow(ray->h_x_intersection - vars->player_x, 2.0) + pow(ray->h_y_intersection - vars->player_y, 2.0));
+            // printf("h ===> player_x: [%f] player_y: [%f] h_x_inter: [%f] h_y_inter: [%f] dis: [%f]\n", vars->player_x, vars->player_y, vars->ray->h_x_intersection, vars->ray->h_y_intersection, vars->ray->h_distance);
+        }
         else
         {
             ray->h_x_intersection += ray->xa;
@@ -85,9 +88,13 @@ void vertical_ray_cast(t_vars *vars)
     if ((!ray->is_down && ray->ya > 0) || (ray->is_down && ray->ya < 0))
         ray->ya *= -1;
     while (!hit_wall) {
-        hit_wall = is_wall(&vars->data->map, ray->v_x_intersection, ray->v_y_intersection);
+        hit_wall = is_wall(vars, ray->v_x_intersection, ray->v_y_intersection);
         if (hit_wall == 1)
-            ray->v_distance = sqrt(pow(vars->player_x - ray->v_x_intersection, 2) + pow(vars->player_y - ray->v_y_intersection, 2));
+        {
+            // printf("is wall x: [%f]\n", ray->v_x_intersection / TILE_SIZE);
+            ray->v_distance = sqrt(pow(ray->v_x_intersection - vars->player_x, 2.0) + pow(ray->v_y_intersection - vars->player_y, 2.0));
+            // printf("v ===> player_x: [%f] player_y: [%f] v_x_inter: [%f] v_y_inter: [%f] dis: [%f]\n", vars->player_x, vars->player_y, vars->ray->v_x_intersection, vars->ray->v_y_intersection, vars->ray->v_distance);
+        }
         else
         {
             ray->v_x_intersection += ray->xa;

@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:09:52 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/18 17:14:18 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:20:23 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	nbr_of_lines(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error("Error: map open\n", 1);
-		exit(EXIT_FAILURE); // wtf
+		print_error("Error :\nopening file \n", 1);
+		exit(EXIT_FAILURE);
 	}
 	line = get_next_line(fd);
 	while (line)
@@ -46,10 +46,10 @@ void	get_file_content(t_GlobaleData *ptr, char *filename)
 	len = nbr_of_lines(filename);
 	ptr->file_content = malloc((len + 1) * sizeof(char *));
 	if (!ptr->file_content)
-		print_error("Error: malloc\n", 1);
+		print_error("Error:\nAllocation\n", 1);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		print_error("Error: map open\n", 1);
+		print_error("Error:\nopening file\n", 1);
 	while (i < len)
 	{
 		ptr->file_content[i] = get_next_line(fd);
@@ -107,7 +107,7 @@ void	parse(int ac, char **av, t_GlobaleData *ptr)
 	i = 0;
 	init_textures(ptr);
 	if (ac != 2 || !check_name_cub(av[1]))
-		print_error("Error: map name\n", 1);
+		print_error("Error:\ninvalid argument\n", 1);
 	get_file_content(ptr, av[1]);
 	while (ptr->file_content[i] && (ptr->file_content[i][0] != ' '
 		&& ptr->file_content[i][0] != '1'))
