@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/19 18:18:19 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:15:19 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_ray
 	double	v_distance;
 	int		is_down;
 	int		is_right;
-	int 	is_ver;
+	int		is_ver;
 }	t_ray;
 
 typedef struct s_window_image
@@ -63,18 +63,6 @@ typedef struct s_window_image
 	int32_t	size_line;
 	int32_t	endian;
 }	t_window_image;
-
-// typedef struct s_texture_image
-// {
-// 	void	*ptr;
-// 	char	*data;
-// 	int32_t	bits_per_pixel;
-// 	int32_t	size_line;
-// 	int32_t	endian;
-// 	int32_t width;
-// 	int32_t height;
-// }	t_texture_image;
-
 
 typedef struct MapLine
 {
@@ -133,28 +121,32 @@ typedef struct GlobaleData
 
 typedef struct s_vars
 {
-	void	*mlx;
-	void	*win;
-	double	player_x;
-	double	player_y;
-	double	next_x;
-	double	next_y;
-	double	delta_x;
-	double	delta_y;
-	double	move_angle;
-	double	start_wall;
-	double	end_wall;
-	double	dst_to_plane;
-	double	wall_height;
-	double	player_angle;
-	int		key_w;
-	int		key_s;
-	int		key_a;
-	int		key_d;
-	int		key_gauche;
-	int		key_droit;
-	int		is_v_ray_cast;
-	t_ray	*ray;
+	void			*mlx;
+	void			*win;
+	double			player_x;
+	double			player_y;
+	double			next_x;
+	double			next_y;
+	double			delta_x;
+	double			delta_y;
+	double			move_angle;
+	double			start_wall;
+	double			end_wall;
+	double			dst_to_plane;
+	double			wall_height;
+	double			player_angle;
+	double			y_step;
+	double			offset_y;
+	int				offset_x;
+	int				pixel_index;
+	int				key_w;
+	int				key_s;
+	int				key_a;
+	int				key_d;
+	int				key_gauche;
+	int				key_droit;
+	int				is_v_ray_cast;
+	t_ray			*ray;
 	t_window_image	*window_img;
 	t_GlobaleData	*data;
 }	t_vars;
@@ -169,9 +161,14 @@ int		is_wall(t_vars *vars, double x, double y);
 void	ray_cast(t_vars *vars);
 int		update(t_vars *vars);
 void	draw_3d(t_vars *vars, int x);
-void    put_pixel(t_vars *vars, int x, int y, int color);
+void	put_pixel(t_vars *vars, int x, int y, int color);
 int		load_tex(t_vars *vars);
 void	texture(t_vars *vars, int x);
+void	v_correction(t_ray *rays_data, int start_index);
+void	h_correction(t_ray *rays_data, int start_index);
+void	vertical_correction(t_ray *rays_data);
+void	horizontal_correction(t_ray *rays_data);
+void	correct_rays(t_ray *rays_data);
 void	check_player_pos(t_GlobaleData *gameMap);
 void	remove_extra_spaces(char *str);
 int		checkcolor(char *str);
