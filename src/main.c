@@ -6,18 +6,11 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 11:55:20 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/22 11:59:11 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:47:04 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	close_window(t_vars *vars)
-{
-	free(vars->ray);
-	mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
-}
 
 void	check_ray_direction(t_ray *ray)
 {
@@ -45,33 +38,6 @@ int	is_wall(t_vars *vars, double x, double y)
 		return (0);
 	}
 	return (2);
-}
-
-void	init(t_vars *vars, int ac, char **av)
-{
-	t_window_image	*window_img;
-	t_GlobaleData	*data;
-
-	data = (t_GlobaleData *)malloc(sizeof(t_GlobaleData));
-	parse(ac, av, data);
-	vars->data = data;
-	vars->ray = (t_ray *)malloc(sizeof(t_ray));
-	window_img = (t_window_image *)malloc(sizeof(t_window_image));
-	vars->mlx = mlx_init();
-	load_tex(vars);
-	vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
-	window_img->ptr = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	window_img->data = mlx_get_data_addr
-		(window_img->ptr, &window_img->bits_per_pixel, \
-			&window_img->size_line, &window_img->endian);
-	vars->window_img = window_img;
-	vars->player_x = (data->playerposition.x * TILE_SIZE) + (TILE_SIZE / 2);
-	vars->player_y = (data->playerposition.y * TILE_SIZE) + (TILE_SIZE / 2);
-	vars->player_angle = data->playerposition.angle;
-	vars->key_w = -1;
-	vars->key_s = -1;
-	vars->key_a = -1;
-	vars->key_d = -1;
 }
 
 int	main(int ac, char **av)

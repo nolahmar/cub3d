@@ -6,11 +6,26 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:23:11 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/22 11:23:48 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:22:42 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	close_window(t_vars *vars)
+{
+	free(vars->ray);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+
+int	rgb_to_int(int r, int g, int b)
+{
+	int	result;
+
+	result = (r << 16) | (g << 8) | (b);
+	return (result);
+}
 
 void	put_pixel(t_vars *vars, int x, int y, int color)
 {
@@ -38,10 +53,12 @@ void	draw_3d(t_vars *vars, int x)
 	vars->start_wall = (WINDOW_HEIGHT / 2) - (vars->wall_height / 2);
 	vars->end_wall = (WINDOW_HEIGHT / 2) + (vars->wall_height / 2);
 	while (++y < vars->start_wall)
-		put_pixel(vars, x, y, 0xADD8E6);
+		put_pixel(vars, x, y, rgb_to_int(vars->data->ceilcolor.red, \
+		vars->data->ceilcolor.green, vars->data->ceilcolor.blue));
 	y = vars->end_wall - 1;
 	while (++y < WINDOW_HEIGHT)
-		put_pixel(vars, x, y, 0xFFC7C7);
+		put_pixel(vars, x, y, rgb_to_int(vars->data->floorcolor.red, \
+		vars->data->floorcolor.green, vars->data->floorcolor.blue));
 	y = vars->start_wall - 1;
 	texture(vars, x);
 }

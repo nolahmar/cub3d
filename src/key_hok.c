@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:30:21 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/22 11:48:14 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:00:48 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	move_w_s(t_vars *vars)
 {
 	if (vars->key_w == 1)
 	{
-		vars->delta_x = MOVE_STEP * cos(vars->player_angle * M_PI / 180);
-		vars->delta_y = MOVE_STEP * sin(vars->player_angle * M_PI / 180);
-		vars->next_x = vars->player_x + vars->delta_x;
-		vars->next_y = vars->player_y + vars->delta_y;
+		vars->d_x = MOVE_STEP * cos(vars->player_angle * M_PI / 180);
+		vars->d_y = MOVE_STEP * sin(vars->player_angle * M_PI / 180);
+		vars->next_x = vars->player_x + vars->d_x;
+		vars->next_y = vars->player_y + vars->d_y;
 		if (!is_wall(vars, vars->next_x, vars->next_y))
 		{
 			vars->player_x = vars->next_x;
@@ -64,10 +64,10 @@ void	move_w_s(t_vars *vars)
 	}
 	else if (vars->key_s == 1)
 	{
-		vars->delta_x = -MOVE_STEP * cos(vars->player_angle * M_PI / 180);
-		vars->delta_y = -MOVE_STEP * sin(vars->player_angle * M_PI / 180);
-		vars->next_x = vars->player_x + vars->delta_x;
-		vars->next_y = vars->player_y + vars->delta_y;
+		vars->d_x = -MOVE_STEP * cos(vars->player_angle * M_PI / 180);
+		vars->d_y = -MOVE_STEP * sin(vars->player_angle * M_PI / 180);
+		vars->next_x = vars->player_x + vars->d_x;
+		vars->next_y = vars->player_y + vars->d_y;
 		if (!is_wall(vars, vars->next_x, vars->next_y))
 		{
 			vars->player_x = vars->next_x;
@@ -81,10 +81,10 @@ void	udapte_helper(t_vars *vars)
 	move_w_s(vars);
 	if (vars->key_d == 1)
 	{
-		vars->delta_x = -MOVE_STEP * cos((vars->player_angle - 90) * M_PI / 180);
-		vars->delta_y = -MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
-		vars->next_x = vars->player_x + vars->delta_x;
-		vars->next_y = vars->player_y + vars->delta_y;
+		vars->d_x = -MOVE_STEP * cos((vars->player_angle - 90) * M_PI / 180);
+		vars->d_y = -MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
+		vars->next_x = vars->player_x + vars->d_x;
+		vars->next_y = vars->player_y + vars->d_y;
 		if (!is_wall(vars, vars->next_x, vars->next_y))
 		{
 			vars->player_x = vars->next_x;
@@ -93,10 +93,10 @@ void	udapte_helper(t_vars *vars)
 	}
 	else if (vars->key_a == 1)
 	{
-		vars->delta_x = MOVE_STEP * cos((vars->player_angle - 90) * M_PI / 180);
-		vars->delta_y = MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
-		vars->next_x = vars->player_x + vars->delta_x;
-		vars->next_y = vars->player_y + vars->delta_y;
+		vars->d_x = MOVE_STEP * cos((vars->player_angle - 90) * M_PI / 180);
+		vars->d_y = MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
+		vars->next_x = vars->player_x + vars->d_x;
+		vars->next_y = vars->player_y + vars->d_y;
 		if (!is_wall(vars, vars->next_x, vars->next_y))
 		{
 			vars->player_x = vars->next_x;

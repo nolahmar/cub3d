@@ -17,7 +17,8 @@ SRC =  ./parsing/color_texture.c \
 		./src/key_hok.c \
 		./src/ray_cast.c \
 		./src/textur_mapping.c \
-		./src/corr_ray.c
+		./src/corr_ray.c \
+		./src/init.c
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address

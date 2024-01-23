@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:02:24 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/22 12:03:39 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:05:53 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	ray_cast(t_vars *vars)
 	t_ray	*rays_data;
 
 	rays_data = (t_ray *)malloc(sizeof(t_ray) * WINDOW_WIDTH);
+	if (rays_data == NULL)
+		print_error("Error\nAllocating memory for t_ray\n", 1);
 	current_angle = vars->player_angle - (FOV / 2);
 	i = 0;
 	while (i < WINDOW_WIDTH)

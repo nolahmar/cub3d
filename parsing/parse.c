@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:09:52 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/19 11:20:23 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:07:48 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,6 @@ void	parse(int ac, char **av, t_GlobaleData *ptr)
 		&& ptr->floorcolor.blue >= 0) && (ptr->ceilcolor.green >= 0
 		&& ptr->floorcolor.green >= 0)))
 		add_to_list(ptr, ptr->file_content[i++]);
-	// printf("line[%s]\n", ptr->file_content[i]);
-	// printf("log_test: [%d]\n", ptr->file_content[i][0] != ' ');
 	while (ptr->file_content[i] && (ptr->file_content[i][0] != ' '
 		|| ptr->file_content[i][0] != '1' ))
 	{

@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/22 14:15:19 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:25:28 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ typedef struct s_vars
 	double			player_y;
 	double			next_x;
 	double			next_y;
-	double			delta_x;
-	double			delta_y;
+	double			d_x;
+	double			d_y;
 	double			move_angle;
 	double			start_wall;
 	double			end_wall;
@@ -146,6 +146,7 @@ typedef struct s_vars
 	int				key_gauche;
 	int				key_droit;
 	int				is_v_ray_cast;
+	unsigned int	texel;
 	t_ray			*ray;
 	t_window_image	*window_img;
 	t_GlobaleData	*data;
@@ -162,12 +163,13 @@ void	ray_cast(t_vars *vars);
 int		update(t_vars *vars);
 void	draw_3d(t_vars *vars, int x);
 void	put_pixel(t_vars *vars, int x, int y, int color);
-int		load_tex(t_vars *vars);
+void	load_tex(t_vars *vars);
 void	texture(t_vars *vars, int x);
 void	v_correction(t_ray *rays_data, int start_index);
 void	h_correction(t_ray *rays_data, int start_index);
 void	vertical_correction(t_ray *rays_data);
 void	horizontal_correction(t_ray *rays_data);
+void	init(t_vars *vars, int ac, char **av);
 void	correct_rays(t_ray *rays_data);
 void	check_player_pos(t_GlobaleData *gameMap);
 void	remove_extra_spaces(char *str);
