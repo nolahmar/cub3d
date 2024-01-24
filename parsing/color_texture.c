@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:13:26 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/19 11:10:05 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:15:03 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	set_fl_color_hpl(char *str, int *r, int *g, int *b)
 		else if (*str == ',')
 			str++;
 		else if (!ft_isdigit(*str) && *str != ',')
-			print_error("Erreur :\nformat de couleur invalide (sol) !\n", 1);
+			print_error("Error\nformat de couleur invalide (sol) !\n", 1);
 	}
 	return (read_value);
 }
@@ -72,14 +72,14 @@ void	set_floor_color(t_GlobaleData *data, char *line)
 	g = 0;
 	b = 0;
 	if (data->floorcolor.blue >= 0)
-		print_error("error:\n", 1);
+		print_error("Error\nDuplicate floor color\n", 1);
 	format_f_eror(line);
 	rgb_ports = ft_split_and_trim(line + 2);
 	rgb_str = ft_concat_split(rgb_ports);
 	ft_free_split(rgb_ports);
 	if (set_fl_color_hpl(rgb_str, &r, &g, &b) != 3 || cnt_vrgls(rgb_str) != 2
 		|| checkcolor(rgb_str) == 0)
-		print_error("Erreur :\nformat de couleur invalide (sol) !\n", 1);
+		print_error("Error\nformat de couleur invalide (sol) !\n", 1);
 	if (!is_valid_rgb(r, g, b))
 		print_error("Erreur :\nvaleur RGB invalide (sol) !\n", 1);
 	ft_free_concat(rgb_str);

@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:45:47 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/19 11:30:25 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:29:53 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,10 @@ void	south_texture(t_GlobaleData *data, char **ptr)
 	if (data->south != NULL)
 		print_error("Error:\nDuplicate south texture!\n", 1);
 	words = split_after_space_reduction(*ptr);
-	if (words && words[0] != NULL && words[1] == NULL) // todo: possible seg
+	if (words && words[0] != NULL && words[1] == NULL)
 	{
 		data->south = malloc(sizeof(t_Texture));
-		// todo: check allocation failure
 		data->south->path = ft_strdup(words[0]);
-		// todo: check allocation failure for strdup
 		ft_free_split(words);
 	}
 	else
@@ -71,7 +69,6 @@ void	south_texture(t_GlobaleData *data, char **ptr)
 	fd = open(data->south->path, O_RDONLY);
 	if (fd < 0)
 		print_error("Error:\nopen image (south)\n", 1);
-	// todo: close fd
 }
 
 void	east_texture(t_GlobaleData *data, char **ptr)
@@ -89,10 +86,9 @@ void	east_texture(t_GlobaleData *data, char **ptr)
 	if (data->east != NULL)
 		print_error("Error:\nDuplicate east texture!\n", 1);
 	words = split_after_space_reduction(*ptr);
-	if (words && words[0] != NULL && words[1] == NULL) // todo: possible seg
+	if (words && words[0] != NULL && words[1] == NULL)
 	{
 		data->east = malloc(sizeof(t_Texture));
-		// todo: check allocation failure
 		data->east->path = ft_strdup(*words);
 		// todo: check allocation failure for strdup
 		ft_free_split(words);

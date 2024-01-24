@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/23 16:25:28 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:32:37 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define KEY_GAUCHE 123
 # define KEY_DROIT 124
 # define KEY_ESC 53
-# define MOVE_STEP 7
+# define MOVE_STEP 8
 # define ROTATE_STEP 5
 # define MAX_LINE_LENGTH 256
 

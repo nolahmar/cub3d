@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:23:11 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/23 16:22:42 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:49:02 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	close_window(t_vars *vars)
 {
+	mlx_destroy_image(vars->mlx, vars->window_img->ptr);
+    free(vars->window_img);
+    free(vars->data);
 	free(vars->ray);
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);

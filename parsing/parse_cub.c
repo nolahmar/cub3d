@@ -6,11 +6,24 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:55:15 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/19 11:18:28 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:05:19 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	free_split_result(char **split_result)
+{
+	size_t	i;
+
+	i = 0;
+	while (split_result[i] != NULL)
+	{
+		free(split_result[i]);
+		i++;
+	}
+	free(split_result);
+}
 
 int	check_name_cub(char *str)
 {
@@ -23,16 +36,16 @@ int	check_name_cub(char *str)
 			return (0);
 		if (split_result[0] == NULL || split_result[1] == NULL)
 		{
-			free(split_result);
+			free_split_result(split_result);
 			return (0);
 		}
 		if (ft_strncmp(split_result[1], "cub", 3) != 0
 			|| ft_strlen(split_result[1]) != 3)
 		{
-			free(split_result);
+			free_split_result(split_result);
 			return (0);
 		}
-		free(split_result);
+		free_split_result(split_result);
 	}
 	return (1);
 }

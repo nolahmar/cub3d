@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:41:05 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/19 15:53:05 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:36:11 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	check_player_pos_help(t_GlobaleData *gameMap, int x, int y)
 		gameMap->playerposition.angle = 90;
 	else if (gameMap->map.data[y][x] == 'N')
 		gameMap->playerposition.angle = 270;
-	// gameMap->map.data[y][x] = '0'; // todo: remove this
+	 gameMap->map.data[y][x] = '0'; 
 }
 
 void	check_player_pos(t_GlobaleData *gameMap)
