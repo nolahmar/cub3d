@@ -21,7 +21,7 @@ SRC =  ./parsing/color_texture.c \
 		./src/init.c
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
 OBJ = $(SRC:.c=.o)
 

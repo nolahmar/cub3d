@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:30:21 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/24 12:31:25 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:56:21 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	move_w_s(t_vars *vars)
 		vars->d_y = MOVE_STEP * sin(vars->player_angle * M_PI / 180);
 		vars->next_x = vars->player_x + vars->d_x;
 		vars->next_y = vars->player_y + vars->d_y;
-		if (!is_wall(vars, vars->next_x, vars->next_y))
+		if (!is_wall(vars, vars->player_x + (2 * vars->d_x), vars->player_y + (2 * vars->d_y)))
 		{
 			vars->player_x = vars->next_x;
 			vars->player_y = vars->next_y;
@@ -68,7 +68,7 @@ void	move_w_s(t_vars *vars)
 		vars->d_y = -MOVE_STEP * sin(vars->player_angle * M_PI / 180);
 		vars->next_x = vars->player_x + vars->d_x;
 		vars->next_y = vars->player_y + vars->d_y;
-		if (!is_wall(vars, vars->next_x, vars->next_y))
+		if (!is_wall(vars, vars->player_x + (2 * vars->d_x), vars->player_y + (2 * vars->d_y)))
 		{
 			vars->player_x = vars->next_x;
 			vars->player_y = vars->next_y;
@@ -85,7 +85,7 @@ void	udapte_helper(t_vars *vars)
 		vars->d_y = -MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
 		vars->next_x = vars->player_x + vars->d_x;
 		vars->next_y = vars->player_y + vars->d_y;
-		if (!is_wall(vars, vars->next_x, vars->next_y))
+		if (!is_wall(vars, vars->player_x + (2 * vars->d_x), vars->player_y + (2 * vars->d_y)))
 		{
 			vars->player_x = vars->next_x;
 			vars->player_y = vars->next_y;
@@ -97,7 +97,7 @@ void	udapte_helper(t_vars *vars)
 		vars->d_y = MOVE_STEP * sin((vars->player_angle - 90) * M_PI / 180);
 		vars->next_x = vars->player_x + vars->d_x;
 		vars->next_y = vars->player_y + vars->d_y;
-		if (!is_wall(vars, vars->next_x, vars->next_y))
+		if (!is_wall(vars, vars->player_x + (2 * vars->d_x), vars->player_y + (2 * vars->d_y)))
 		{
 			vars->player_x = vars->next_x;
 			vars->player_y = vars->next_y;
