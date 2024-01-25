@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 11:55:20 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/24 11:56:15 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:27:15 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ void	check_ray_direction(t_ray *ray)
 		ray->is_down = 1;
 	if (ray->angle <= M_PI_2 || ray->angle >= (3 * M_PI) / 2)
 		ray->is_right = 1;
+}
+
+void	check_wall(t_vars *vars)
+{
+	if (!is_wall(vars, vars->player_x + (2 * vars->d_x), \
+		vars->player_y + (2 * vars->d_y)))
+	{
+		vars->player_x = vars->next_x;
+		vars->player_y = vars->next_y;
+	}
 }
 
 int	is_wall(t_vars *vars, double x, double y)
@@ -49,6 +59,7 @@ int	main(int ac, char **av)
 	mlx_hook(vars.win, 2, 0, key_press, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);
 	mlx_loop_hook(vars.mlx, update, &vars);
+	system("leaks Cub3d");
 	mlx_loop(vars.mlx);
 	return (0);
 }

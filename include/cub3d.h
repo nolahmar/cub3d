@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/24 17:28:18 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:13:04 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ int		close_window(t_vars *vars);
 int		key_press(int keycode, t_vars *vars);
 int		key_release(int keycode, t_vars *vars);
 void	check_ray_direction(t_ray *ray);
+void	check_wall(t_vars *vars);
 int		is_wall(t_vars *vars, double x, double y);
 void	ray_cast(t_vars *vars);
 int		update(t_vars *vars);
@@ -210,5 +211,7 @@ char	**ft_split_and_trim(char *line);
 int		ft_count_words(const char *str, char c);
 char	*ft_concat_split(char **split);
 void	ft_free_concat(char *concat);
+void	free_split_result(char **split_result);
+int		find_last_dot_index(char **spt_rs);
 
 #endif

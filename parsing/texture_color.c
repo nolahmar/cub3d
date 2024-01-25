@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_color.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:45:47 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/24 12:29:53 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:48:54 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,17 @@ void	north_texture(t_GlobaleData *data, char **ptr)
 
 	i = 0;
 	(*ptr) += 2;
-	if (data->north != NULL)
-		print_error("Error:\nDuplicate north texture!\n", 1);
-	if (*ptr == NULL || **ptr != ' ')
-		print_error("Error:\nDuplicate north texture!\n", 1);
+	if (data->north != NULL || *ptr == NULL || **ptr != ' ')
+		print_error("Error :\nTHE PATH IS NOT VALID (north) / DUPLICATE!\n", 1);
 	while ((*ptr)[i] != '\n')
-		i++;  // todo
+		i++;
 	words = split_after_space_reduction(*ptr);
-	if (words && words[0] != NULL && words[1] == NULL)  // todo: possible seg
+	if (words && words[0] != NULL && words[1] == NULL)
 	{
 		data->north = malloc(sizeof(t_Texture));
-		// todo: check allocation failure
+		if (data->north == NULL)
+			print_error("error:\nallocation error\n", 1);
 		data->north->path = ft_strdup(words[0]);
-		// todo: check allocation failure for strdup
 		ft_free_split(words);
 	}
 	else
@@ -40,7 +38,7 @@ void	north_texture(t_GlobaleData *data, char **ptr)
 	fd = open(data->north->path, O_RDONLY);
 	if (fd < 0)
 		print_error("Error:\nopen image (north)\n", 1);
-	// todo: close fd
+	close(fd);
 }
 
 void	south_texture(t_GlobaleData *data, char **ptr)
@@ -51,16 +49,16 @@ void	south_texture(t_GlobaleData *data, char **ptr)
 
 	i = 0;
 	(*ptr) += 2;
-	if (*ptr == NULL || **ptr != ' ')
-		print_error("Error:\nTHE PATH IS NOT VALID (south)!\n", 1);
+	if (data->south != NULL || *ptr == NULL || **ptr != ' ')
+		print_error("Error:\nTHE PATH IS NOT VALID (south)/DUPLICATE!\n", 1);
 	while ((*ptr)[i] != '\n')
-		i++; 
-	if (data->south != NULL)
-		print_error("Error:\nDuplicate south texture!\n", 1);
+		i++;
 	words = split_after_space_reduction(*ptr);
 	if (words && words[0] != NULL && words[1] == NULL)
 	{
 		data->south = malloc(sizeof(t_Texture));
+		if (data->south == NULL)
+			print_error("error:\nallocation error\n", 1);
 		data->south->path = ft_strdup(words[0]);
 		ft_free_split(words);
 	}
@@ -69,6 +67,7 @@ void	south_texture(t_GlobaleData *data, char **ptr)
 	fd = open(data->south->path, O_RDONLY);
 	if (fd < 0)
 		print_error("Error:\nopen image (south)\n", 1);
+	close(fd);
 }
 
 void	east_texture(t_GlobaleData *data, char **ptr)
@@ -79,18 +78,17 @@ void	east_texture(t_GlobaleData *data, char **ptr)
 
 	i = 0;
 	(*ptr) += 2;
-	if (*ptr == NULL || **ptr != ' ')
-		print_error("Error:\nTHE PATH IS NOT VALID (east)!\n", 1);
+	if (data->east != NULL || *ptr == NULL || **ptr != ' ')
+		print_error("Error:\nTHE PATH IS NOT VALID (east)/DUPLICATE!\n", 1);
 	while ((*ptr)[i] != '\n')
-		i++; 
-	if (data->east != NULL)
-		print_error("Error:\nDuplicate east texture!\n", 1);
+		i++;
 	words = split_after_space_reduction(*ptr);
 	if (words && words[0] != NULL && words[1] == NULL)
 	{
 		data->east = malloc(sizeof(t_Texture));
+		if (data->east == NULL)
+			print_error("error:\nallocation error\n", 1);
 		data->east->path = ft_strdup(*words);
-		// todo: check allocation failure for strdup
 		ft_free_split(words);
 	}
 	else
@@ -98,7 +96,7 @@ void	east_texture(t_GlobaleData *data, char **ptr)
 	fd = open(data->east->path, O_RDONLY);
 	if (fd < 0)
 		print_error("Error:\nopen image (east)\n", 1);
-	// todo: close fd
+	close(fd);
 }
 
 void	west_texture(t_GlobaleData *data, char **ptr)
@@ -109,19 +107,17 @@ void	west_texture(t_GlobaleData *data, char **ptr)
 
 	i = 0;
 	(*ptr) += 2;
-	if (*ptr == NULL || **ptr != ' ')
-		print_error("Error:\nTHE PATH IS NOT VALID (west)!\n", 1);
+	if (data->west != NULL || *ptr == NULL || **ptr != ' ')
+		print_error("Error:\nTHE PATH IS NOT VALID (west)/DUPLICATE!\n", 1);
 	while ((*ptr)[i] != '\n')
 		i++;
-	if (data->west != NULL)
-		print_error("Error:\nDuplicate west texture!\n", 1);
 	words = split_after_space_reduction(*ptr);
 	if (words && words[0] != NULL && words[1] == NULL)
 	{
 		data->west = malloc(sizeof(t_Texture));
-		// todo: check allocation failure
+		if (data->west == NULL)
+			print_error("error:\nallocation error\n", 1);
 		data->west->path = ft_strdup(words[0]);
-		// todo: check allocation failure for strdup
 		ft_free_split(words);
 	}
 	else
@@ -129,7 +125,7 @@ void	west_texture(t_GlobaleData *data, char **ptr)
 	fd = open(data->north->path, O_RDONLY);
 	if (fd < 0)
 		print_error("Error:\nopen image (north)\n", 1);
-	// todo: close fd
+	close(fd);
 }
 
 void	fill_textures(t_GlobaleData *data, char *ptr)

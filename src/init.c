@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:46:35 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/24 16:02:27 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:06:29 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	init_helper(t_vars *vars)
 void	init_player(t_vars *vars, t_GlobaleData *data)
 {
 	vars->key_w = -1;
-    vars->key_s = -1;
-    vars->key_a = -1;
-    vars->key_d = -1;
+	vars->key_s = -1;
+	vars->key_a = -1;
+	vars->key_d = -1;
 	vars->key_gauche = -1;
 	vars->key_droit = -1;
 	vars->player_x = (data->playerposition.x * TILE_SIZE) + (TILE_SIZE / 2);
 	vars->player_y = (data->playerposition.y * TILE_SIZE) + (TILE_SIZE / 2);
 	vars->player_angle = data->playerposition.angle;
- }
+}
 
 void	init(t_vars *vars, int ac, char **av)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:55:15 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/24 12:05:19 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:37:37 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,47 @@ void	free_split_result(char **split_result)
 	free(split_result);
 }
 
+int	find_last_dot_index(char **spt_rs)
+{
+	int	last_dot_index;
+	int	i;
+
+	last_dot_index = -1;
+	i = 0;
+	while (spt_rs[i] != NULL)
+	{
+		last_dot_index = i;
+		i++;
+	}
+	return (last_dot_index);
+}
+
 int	check_name_cub(char *str)
 {
-	char	**split_result;
+	char	**spt_rs;
+	int		last_dot_index;
 
 	if (str != NULL)
 	{
-		split_result = ft_split(str, '.');
-		if (split_result == NULL)
+		spt_rs = ft_split(str, '.');
+		if (spt_rs == NULL)
 			return (0);
-		if (split_result[0] == NULL || split_result[1] == NULL)
+		last_dot_index = find_last_dot_index(spt_rs);
+		if (last_dot_index < 0 || last_dot_index == 0)
 		{
-			free_split_result(split_result);
+			free_split_result(spt_rs);
 			return (0);
 		}
-		if (ft_strncmp(split_result[1], "cub", 3) != 0
-			|| ft_strlen(split_result[1]) != 3)
+		if (ft_strncmp(spt_rs[last_dot_index], "cub", 3) != 0
+			|| ft_strlen(spt_rs[last_dot_index]) != 3)
 		{
-			free_split_result(split_result);
+			free_split_result(spt_rs);
 			return (0);
 		}
-		free_split_result(split_result);
+		free_split_result(spt_rs);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 char	*fixline(char *line, int maxlen)

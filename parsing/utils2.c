@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 14:22:56 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/18 14:18:53 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:31:30 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	**ft_split_and_trim(char *line)
 
 	i = 0;
 	split = ft_split(line, ',');
-	// todo: check if split memory allocation failed
+	if (!split)
+		print_error("Error:\nallocation\n", 1);
 	while (split[i])
 	{
 		temp = split[i];

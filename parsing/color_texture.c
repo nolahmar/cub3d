@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:13:26 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/24 12:15:03 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:30:22 by bbendiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	set_ceiling_color(t_GlobaleData *data, char *line)
 	g = 0;
 	b = 0;
 	if (data->ceilcolor.blue >= 0)
-		print_error("Erreur\n", 1);  // todo: change Erreur to Error
+		print_error("Error\n", 1);
 	format_c_eror(line);
 	rgb_ports = ft_split_and_trim(line + 2);
 	rgb_str = ft_concat_split(rgb_ports);
