@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_color.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbendiou <bbendiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:45:47 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/24 13:48:54 by bbendiou         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:12:41 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	north_texture(t_GlobaleData *data, char **ptr)
 	i = 0;
 	(*ptr) += 2;
 	if (data->north != NULL || *ptr == NULL || **ptr != ' ')
-		print_error("Error :\nTHE PATH IS NOT VALID (north) / DUPLICATE!\n", 1);
+		print_error("Error\nTHE PATH IS NOT VALID (north) / DUPLICATE!\n", 1);
 	while ((*ptr)[i] != '\n')
 		i++;
 	words = split_after_space_reduction(*ptr);
@@ -29,15 +29,15 @@ void	north_texture(t_GlobaleData *data, char **ptr)
 	{
 		data->north = malloc(sizeof(t_Texture));
 		if (data->north == NULL)
-			print_error("error:\nallocation error\n", 1);
+			print_error("Error\nAllocation error\n", 1);
 		data->north->path = ft_strdup(words[0]);
 		ft_free_split(words);
 	}
 	else
-		print_error("Error:\nInvalid path format!\n", 1);
+		print_error("Error\nInvalid path format!\n", 1);
 	fd = open(data->north->path, O_RDONLY);
 	if (fd < 0)
-		print_error("Error:\nopen image (north)\n", 1);
+		print_error("Error\nOpen image (north)\n", 1);
 	close(fd);
 }
 
@@ -50,7 +50,7 @@ void	south_texture(t_GlobaleData *data, char **ptr)
 	i = 0;
 	(*ptr) += 2;
 	if (data->south != NULL || *ptr == NULL || **ptr != ' ')
-		print_error("Error:\nTHE PATH IS NOT VALID (south)/DUPLICATE!\n", 1);
+		print_error("Error\nTHE PATH IS NOT VALID (south)/DUPLICATE!\n", 1);
 	while ((*ptr)[i] != '\n')
 		i++;
 	words = split_after_space_reduction(*ptr);
@@ -79,7 +79,7 @@ void	east_texture(t_GlobaleData *data, char **ptr)
 	i = 0;
 	(*ptr) += 2;
 	if (data->east != NULL || *ptr == NULL || **ptr != ' ')
-		print_error("Error:\nTHE PATH IS NOT VALID (east)/DUPLICATE!\n", 1);
+		print_error("Error\nTHE PATH IS NOT VALID (east)/DUPLICATE!\n", 1);
 	while ((*ptr)[i] != '\n')
 		i++;
 	words = split_after_space_reduction(*ptr);
@@ -87,15 +87,15 @@ void	east_texture(t_GlobaleData *data, char **ptr)
 	{
 		data->east = malloc(sizeof(t_Texture));
 		if (data->east == NULL)
-			print_error("error:\nallocation error\n", 1);
+			print_error("Error\nAllocation error\n", 1);
 		data->east->path = ft_strdup(*words);
 		ft_free_split(words);
 	}
 	else
-		print_error("Error:\nInvalid path format!\n", 1);
+		print_error("Error\nInvalid path format!\n", 1);
 	fd = open(data->east->path, O_RDONLY);
 	if (fd < 0)
-		print_error("Error:\nopen image (east)\n", 1);
+		print_error("Error\nOpen image (east)\n", 1);
 	close(fd);
 }
 

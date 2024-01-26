@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:15:56 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/19 11:21:18 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:11:15 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	check_err(char *ptr)
 		&& ft_strncmp(ptr, "EA ", 3) != 0 && ft_strncmp(ptr, "SO ", 3) != 0
 		&& ft_strncmp(ptr, "C ", 2) != 0 && ft_strncmp(ptr, "F ", 2) != 0
 		&& ptr[0] != ' ' && ptr[0] != '\n')
-		print_error("Error:\nbad argument!\n", 1);
+		print_error("Error\nBad argument!\n", 1);
 }
 
 void	format_c_eror(char *line)
 {
 	if (ft_strncmp(line, "C", 1) != 0)
-		print_error("Erreur :\nformat de ligne invalide (ceil) !\n", 1);
+		print_error("Error\nFormat de ligne invalide (ceil) !\n", 1);
 }
 
 void	format_f_eror(char *line)
 {
 	if (ft_strncmp(line, "F ", 2) != 0)
-		print_error("Erreur :\nformat de ligne invalide (sol) !\n", 1);
+		print_error("Error\nFormat de ligne invalide (sol) !\n", 1);
 }
 
 void	print_error(char *error, int exit_code)

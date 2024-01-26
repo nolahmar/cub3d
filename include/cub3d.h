@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/25 12:13:04 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:30:14 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@ void	vertical_correction(t_ray *rays_data);
 void	horizontal_correction(t_ray *rays_data);
 void	init(t_vars *vars, int ac, char **av);
 void	correct_rays(t_ray *rays_data);
+void    free_map_line(t_MapLine *lines);
+void    free_map_data(char **data);
 void	check_player_pos(t_GlobaleData *gameMap);
 void	remove_extra_spaces(char *str);
 int		checkcolor(char *str);

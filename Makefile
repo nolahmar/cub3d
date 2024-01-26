@@ -18,10 +18,11 @@ SRC =  ./parsing/color_texture.c \
 		./src/ray_cast.c \
 		./src/textur_mapping.c \
 		./src/corr_ray.c \
-		./src/init.c
+		./src/init.c \
+		./src/free.c
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror # -fsanitize=address
 MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
 OBJ = $(SRC:.c=.o)
 

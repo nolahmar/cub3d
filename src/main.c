@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 11:55:20 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/25 12:27:15 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/26 11:56:29 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	main(int ac, char **av)
 	mlx_hook(vars.win, 2, 0, key_press, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);
 	mlx_loop_hook(vars.mlx, update, &vars);
-	system("leaks Cub3d");
 	mlx_loop(vars.mlx);
 	return (0);
 }

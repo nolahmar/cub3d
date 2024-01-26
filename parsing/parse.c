@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:09:52 by bbendiou          #+#    #+#             */
-/*   Updated: 2024/01/23 12:07:48 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:06:11 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	nbr_of_lines(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error("Error :\nopening file \n", 1);
+		print_error("Error\nopening file \n", 1);
 		exit(EXIT_FAILURE);
 	}
 	line = get_next_line(fd);
@@ -46,10 +46,10 @@ void	get_file_content(t_GlobaleData *ptr, char *filename)
 	len = nbr_of_lines(filename);
 	ptr->file_content = malloc((len + 1) * sizeof(char *));
 	if (!ptr->file_content)
-		print_error("Error:\nAllocation\n", 1);
+		print_error("Error\nAllocation\n", 1);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		print_error("Error:\nopening file\n", 1);
+		print_error("Error\nopening file\n", 1);
 	while (i < len)
 	{
 		ptr->file_content[i] = get_next_line(fd);
@@ -67,10 +67,10 @@ void	add_to_list(t_GlobaleData *mapList, char *line)
 	newline = malloc(sizeof(t_MapLine));
 	current = mapList->mapline;
 	if (newline == NULL)
-		print_error("Error:\nMemory allocation failed\n", 1);
+		print_error("Error\nMemory allocation failed\n", 1);
 	newline->content = ft_strdup(line);
 	if (newline->content == NULL)
-		print_error("Error:\nMemory allocation failed\n", 1);
+		print_error("Error\nMemory allocation failed\n", 1);
 	newline->next = NULL;
 	if (mapList->mapline == NULL)
 		mapList->mapline = newline;
@@ -107,7 +107,7 @@ void	parse(int ac, char **av, t_GlobaleData *ptr)
 	i = 0;
 	init_textures(ptr);
 	if (ac != 2 || !check_name_cub(av[1]))
-		print_error("Error:\ninvalid argument\n", 1);
+		print_error("Error\ninvalid argument\n", 1);
 	get_file_content(ptr, av[1]);
 	while (ptr->file_content[i] && (ptr->file_content[i][0] != ' '
 		&& ptr->file_content[i][0] != '1'))
@@ -122,7 +122,7 @@ void	parse(int ac, char **av, t_GlobaleData *ptr)
 	while (ptr->file_content[i] && (ptr->file_content[i][0] != ' '
 		|| ptr->file_content[i][0] != '1' ))
 	{
-		print_error("error :\nbad argument\n", 1);
+		print_error("Error\nbad argument\n", 1);
 		i++;
 	}
 	ft_map(ptr);

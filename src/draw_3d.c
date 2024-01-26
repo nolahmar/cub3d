@@ -6,21 +6,11 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:23:11 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/25 12:30:17 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:14:04 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	close_window(t_vars *vars)
-{
-	mlx_destroy_image(vars->mlx, vars->window_img->ptr);
-	free(vars->window_img);
-	free(vars->data);
-	free(vars->ray);
-	mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
-}
 
 int	rgb_to_int(int r, int g, int b)
 {
