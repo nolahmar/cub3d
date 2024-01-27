@@ -1,6 +1,5 @@
 NAME = Cub3d
 LIBFT = libft/libft.a
-MINILIBX = mlx/libmlx.a
 
 SRC =  ./parsing/color_texture.c \
 		./parsing/map.c \
@@ -22,23 +21,21 @@ SRC =  ./parsing/color_texture.c \
 		./src/free.c
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror # -fsanitize=address
-MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
+CFLAGS = -Wall -Wextra -Werror  #-fsanitize=address
+MLX = -lmlx -framework OpenGL -framework Appkit
 OBJ = $(SRC:.c=.o)
 
 all : ${NAME}
 
-$(NAME) : $(OBJ) $(LIBFT) $(MINILIBX)
+$(NAME) : $(OBJ) $(LIBFT) 
 	$(CC) $(CFLAGS) $(MLX) $(SRC) $(LIBFT) -o $(NAME)
 
-$(MINILIBX):
-	$(MAKE) -C mlx
 
 $(LIBFT):
 	$(MAKE) -C libft
 
 clean:
-	$(MAKE) -C mlx clean
+	$(MAKE) -C libft clean
 	rm -f $(OBJ) 
 
 fclean: clean

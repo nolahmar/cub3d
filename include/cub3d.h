@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:16:55 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/26 14:30:14 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:53:22 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include <stdlib.h>
-# include "../mlx/mlx.h"
+# include <mlx.h>
 # include <math.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -109,8 +109,6 @@ typedef struct GlobaleData
 	t_Texture	*south;
 	t_Texture	*east;
 	t_Texture	*west;
-	void		*mlx;
-	void		*win;
 	char		**file_content;
 	t_Color		floorcolor;
 	t_Color		ceilcolor;
@@ -172,8 +170,8 @@ void	vertical_correction(t_ray *rays_data);
 void	horizontal_correction(t_ray *rays_data);
 void	init(t_vars *vars, int ac, char **av);
 void	correct_rays(t_ray *rays_data);
-void    free_map_line(t_MapLine *lines);
-void    free_map_data(char **data);
+void	free_map_line(t_MapLine *lines);
+void	free_map_data(char **data);
 void	check_player_pos(t_GlobaleData *gameMap);
 void	remove_extra_spaces(char *str);
 int		checkcolor(char *str);

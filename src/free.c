@@ -6,7 +6,7 @@
 /*   By: nolahmar <nolahmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:13:38 by nolahmar          #+#    #+#             */
-/*   Updated: 2024/01/26 14:20:03 by nolahmar         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:56:04 by nolahmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_map_line(t_MapLine *lines)
 	while (lines)
 	{
 		tmp = lines->next;
+		free(lines->content);
 		free(lines);
 		lines = tmp;
 	}
@@ -41,9 +42,13 @@ int	close_window(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->window_img->ptr);
 	free(vars->data->north->path);
+	free(vars->data->north);
 	free(vars->data->south->path);
+	free(vars->data->south);
 	free(vars->data->east->path);
+	free(vars->data->east);
 	free(vars->data->west->path);
+	free(vars->data->west);
 	free_map_line(vars->data->mapline);
 	free_map_data(vars->data->map.data);
 	free_map_data(vars->data->file_content);
@@ -51,6 +56,5 @@ int	close_window(t_vars *vars)
 	free(vars->data);
 	free(vars->ray);
 	mlx_destroy_window(vars->mlx, vars->win);
-	system("leaks Cub3d");
 	exit(0);
 }
